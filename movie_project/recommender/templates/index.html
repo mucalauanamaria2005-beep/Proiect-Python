@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistem de recomandare filme</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+            color: #ffffff;
+
+            background-image: url("{% static 'images/fundal.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Fundal blurat */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: -20px;
+            background-image: url("https://www.wondermind.com/wp-content/uploads/2024/09/20-Feel-Good-Movies-People-Swear-By-For-Your-Next-Bad-Day.jpg");
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -2;
+        }
+
+        /* Overlay pentru contrast */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: -1;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        input, select, button {
+            padding: 12px;
+            margin: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+
+        input, select {
+            width: 260px;
+        }
+
+        button {
+            background-color: #ff6b81;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff4757;
+        }
+
+        .info-box {
+            margin: 30px auto 20px auto;
+            background: rgba(255,255,255,0.18);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            background: white;
+            color: #333;
+            margin: 10px auto;
+            padding: 15px;
+            width: 320px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        li:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Sistem de recomandare filme</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div>
+        <input
+            type="text"
+            name="movie_title"
+            placeholder="Introdu filmul preferat"
+            required
+        >
+    </div>
+
+    <div>
+        <select name="criterion">
+            <option value="general">General</option>
+            <option value="gen">Gen</option>
+            <option value="tema">Temă</option>
+            <option value="actori">Actori</option>
+            <option value="regizor">Regizor</option>
+        </select>
+    </div>
+
+    <button type="submit">Generează recomandări</button>
+</form>
+
+{% if movie_title %}
+    <div class="info-box">
+        <h3>Film ales</h3>
+        <p><strong>{{ movie_title }}</strong></p>
+
+        <h4>Criteriu ales</h4>
+        <p><strong>{{ criterion }}</strong></p>
+    </div>
+{% endif %}
+
+{% if recommendations %}
+    <h2>Recomandări:</h2>
+    <ul>
+        {% for movie in recommendations %}
+            <li>{{ movie }}</li>
+        {% endfor %}
+    </ul>
+{% elif movie_title %}
+    <p> Nu au fost găsite recomandări pentru acest film.</p>
+{% endif %}
+
+</body>
+</html>
