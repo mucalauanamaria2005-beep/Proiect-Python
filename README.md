@@ -1,6 +1,6 @@
 # Proiect Python
 
-recomandare filme
+
 
  Sistem de recomandare a filmelor
 
@@ -55,4 +55,14 @@ Scopul acestui proiect este de a demonstra utilizarea limbajului Python pentru d
  Cum funcționează aplicația
 
 Aplicația utilizează fișiere CSV care conțin informații despre filme (descriere, genuri, actori, regizor). Pe baza acestor date, se calculează similaritatea dintre filme folosind tehnici de procesare a textului și cosine similarity, iar utilizatorului îi sunt afișate cele mai relevante recomandări.
+
+
+
+&nbsp;Instrucțiuni pentru rularea serverului local
+
+După descărcarea fișierelor de pe GitHub, deschidem fișierul movie\_project în PyCharm, deschidem terminalul(Alt+F12), iar după ce ne asigurăm că suntem în folderul corect (prin comanda CD), rulăm comanda ”python -m pip install -r requirements.txt”. După finalizarea descărcărilor, rulăm cu ajutorul comenzii ”python manage.py runserver” și apasăm link-ul.
+
+
+
+
 
